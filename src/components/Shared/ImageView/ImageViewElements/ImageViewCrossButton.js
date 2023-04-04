@@ -8,7 +8,7 @@ const ImageViewCrossButton = ({ handleImageViewCrossBtn }) => {
       className={styles["image-view-cross-button"]}
     >
       <Image
-        src={"/images/crossMenu.png"}
+        src={"/images/CrossMenu.png"}
         alt="cross"
         height={"20"}
         width={"20"}

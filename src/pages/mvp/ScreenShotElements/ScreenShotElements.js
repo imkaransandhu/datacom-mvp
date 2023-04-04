@@ -37,7 +37,7 @@ const ScreenShotElements = ({
       <CanvasElement canvavrefDetail={newCanvas4} />
       <CanvasElement canvavrefDetail={newCanvas5} />
 
-      {backgroundImages.length !== 0 && (
+      {displayValueText && (
         <ValueElement text={backgroundImages[currentScreen]} />
       )}
     </div>
