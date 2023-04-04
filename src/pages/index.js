@@ -10,18 +10,44 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import io from "socket.io-client";
 import ImageView from "@/components/Shared/ImageView/ImageView";
+import axios from "axios";
 
 export default function Home() {
   const [isListView, setIsListView] = useState(true);
   const [imgSrc, setImgSrc] = useState(null);
   const [socket, setSocket] = useState();
-  const fetcher = async function fetchData(url) {
-    const response = await fetch(url);
-    return response.json();
-  };
+  const [data, setData] = useState();
+  async function fetchData() {
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: "/api/gallery3/route",
+      headers: {},
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+        const sortedData = sortByLastModified(response.data);
+        setData(sortedData);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  function sortByLastModified(arr) {
+    arr.sort(function (a, b) {
+      return new Date(b.createdOn).getTime() - new Date(a.createdOn).getTime();
+    });
+    return arr;
+  }
 
   useEffect(() => {
+    fetchData();
     socketInitializer();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadImageView = (e) => {
@@ -51,35 +77,34 @@ export default function Home() {
     setSocket(newSocket);
   };
 
-  const { data, error, isLoading } = useSWR("/api/gallery3/route", fetcher);
-  if (error)
-    return (
-      <div
-        style={{
-          backgroundColor: "black",
-          height: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <h1>Failed to load</h1>
-      </div>
-    );
-  if (isLoading)
-    return (
-      <div
-        style={{
-          backgroundColor: "black",
-          height: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <h1>Loading...</h1>
-      </div>
-    );
+  // if (error)
+  //   return (
+  //     <div
+  //       style={{
+  //         backgroundColor: "black",
+  //         height: "100vh",
+  //         display: "flex",
+  //         justifyContent: "center",
+  //         alignItems: "center",
+  //       }}
+  //     >
+  //       <h1>Failed to load</h1>
+  //     </div>
+  //   );
+  // if (isLoading)
+  //   return (
+  //     <div
+  //       style={{
+  //         backgroundColor: "black",
+  //         height: "100vh",
+  //         display: "flex",
+  //         justifyContent: "center",
+  //         alignItems: "center",
+  //       }}
+  //     >
+  //       <h1>Loading...</h1>
+  //     </div>
+  //   );
   return (
     <div>
       <CaptureSession />
@@ -111,11 +136,13 @@ export default function Home() {
           </select>
         </div>
       </main>
-      <GalleryGrid
-        data={data}
-        isListView={isListView}
-        loadImageView={loadImageView}
-      />
+      {data && (
+        <GalleryGrid
+          data={data}
+          isListView={isListView}
+          loadImageView={loadImageView}
+        />
+      )}
       <div className={styles.button}>
         <Link href={"/capture"} className={styles.link}>
           <Image

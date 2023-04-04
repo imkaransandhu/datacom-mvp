@@ -3,7 +3,7 @@ import { useState } from "react";
 import styles from "./../ImageView.module.css";
 
 const ImageViewCopyButton = ({ imgSrc }) => {
-  const [copyBtnText, setCopyBtnText] = useState("Copy Text");
+  const [copyBtnText, setCopyBtnText] = useState("Copy Link");
 
   const handleCopyBtn = () => {
     console.log(imgSrc);

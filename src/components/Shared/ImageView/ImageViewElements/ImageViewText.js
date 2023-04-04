@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import styles from "./../ImageView.module.css";
 
 const ImageViewText = ({ imgSrc }) => {
-  const [value, setvalue] = useState();
   const [dateTime, setDateTime] = useState();
 
   useEffect(() => {
@@ -14,7 +13,8 @@ const ImageViewText = ({ imgSrc }) => {
     function formatDate(str) {
       const splitOn_ = str.split("_");
       const removeFileExtension = splitOn_[2].split(".");
-      return `${splitOn_[1]}_${removeFileExtension[0]}`;
+      const removedPercentage3A = removeFileExtension[0].replace(/%3A/g, ":");
+      return `${splitOn_[1]}_${removedPercentage3A}`;
     }
 
     setDateTime(formatDate(imgSrc));

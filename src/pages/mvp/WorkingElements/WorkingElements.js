@@ -13,9 +13,9 @@ const WorkingElements = ({
   currentScreen,
 }) => {
   const videoToRevealSrc = [
+    "/video/lookBeyondToday.mp4",
     "/video/plain.mp4",
-    "/video/plain.mp4",
-    "/video/plain.mp4",
+    "/video/custom-plain.mp4",
   ];
 
   return (

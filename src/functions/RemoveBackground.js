@@ -32,7 +32,10 @@ export default async function RemoveBackground(
       webcamEl !== null &&
       webcamEl.video.readyState === 4
     ) {
-      // Person Detect Modal
+      console.log(webcamEl.video);
+      // webcamEl.video.width = screen.width;
+      // webcamEl.video.height = screen.height;
+      // // Person Detect Modal
       const predictions = await modelCoco.detect(webcamEl.video);
 
       if (predictions.length !== 0) {
@@ -63,6 +66,10 @@ export default async function RemoveBackground(
       const maskBlurAmount = 10;
       const flipHorizontal = true;
 
+      // canvasEl.height = screen.height;
+      // canvasEl.width = screen.width;
+      // videoToRevealEl.width = screen.width;
+      // videoToRevealEl.height = screen.height;
       // Draw the mask onto the image on a canvas.  With opacity set to 0.7 and
       // maskBlurAmount set to 3, this will darken the background and blur the
       // darkened background's edge.
