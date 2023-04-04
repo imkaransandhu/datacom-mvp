@@ -9,9 +9,9 @@ const ImageViewCrossButton = ({ handleImageViewCrossBtn }) => {
     >
       <Image
         src={"/images/crossMenu.png"}
-        alt="cross or X"
-        height={20}
-        width={20}
+        alt="cross"
+        height={"20"}
+        width={"20"}
       />
     </button>
   );

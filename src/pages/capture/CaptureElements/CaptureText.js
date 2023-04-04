@@ -9,7 +9,7 @@ const CaptureText = () => {
         <Image
           src="/images/CaptureIcon.png"
           height={25}
-          width="30"
+          width={30}
           alt="capture icon"
         />
       </div>
