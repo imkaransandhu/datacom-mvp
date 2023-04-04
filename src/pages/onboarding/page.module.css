@@ -1,0 +1,128 @@
+/************ Onboarding Page ************/
+.carousel-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  /* border: 5px solid red; */
+}
+
+/************ All Onboarding Elements Components ************/
+.carousel-content {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.8rem;
+  height: 100%;
+  transition: transform 0.5s cubic-bezier(0.37, 0.14, 0.56, 1);
+  /* border: 3px solid yellow; */
+}
+
+.carousel-content div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  /* width: 100vw; */
+  /* height: 100%; */
+  padding-left: var(--padding-left);
+  padding-right: var(--padding-right);
+  /* border: 5px solid blue; */
+}
+
+/************ HeaderSection Component ************/
+.header-content h4 {
+  font-size: var(--fs-18);
+  font-weight: 400;
+  margin-top: 3rem;
+}
+
+.header-content h1 {
+  font-size: var(--fs-35);
+  font-weight: 600;
+  letter-spacing: -0.005rem;
+  margin-bottom: 0.8rem;
+}
+
+.header-content p {
+  font-size: var(--fs-18);
+  font-weight: 300;
+  line-height: 124%;
+}
+
+/************ AnimationSection Components ************/
+.animation {
+  background-color: aquamarine;
+  height: 14rem;
+  opacity: 0.4;
+  margin-bottom: 2rem;
+}
+
+/************ NavigationSection Components ************/
+.navigation-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.9rem;
+  padding-left: var(--padding-left);
+  padding-right: var(--padding-right);
+  font-size: var(--fs-18);
+  font-weight: 500;
+  /* border: 2px solid magenta; */
+}
+
+.arrow-box {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 2rem;
+  width: 5rem;
+  /* border: 2px solid greenyellow; */
+}
+
+.arrow-hidden {
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.arrow-left {
+  opacity: 0.5;
+}
+
+.dots-container {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.dots {
+  background-color: var(--secondary);
+  height: 0.6rem;
+  width: 0.6rem;
+  border-radius: 50%;
+  opacity: 0.5;
+  transition: opacity 0.5s;
+}
+
+.dot-active {
+  opacity: 1;
+}
+
+.skip {
+  display: flex;
+  justify-content: center;
+  font-size: var(--fs-16);
+  font-weight: 400;
+  opacity: 1;
+  transition: opacity 0.5s;
+}
+
+.hide-skip {
+  opacity: 0;
+}
+
+.link {
+  text-decoration: none;
+  color: var(--secondary);
+}
