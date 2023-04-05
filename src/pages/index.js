@@ -6,17 +6,21 @@ import WallMenu from "@/components/Shared/WallHeader/WallHeader";
 import CaptureSession from "@/components/Shared/CaptureSession/CaptureSession";
 import Image from "next/image";
 import GalleryGrid from "@/components/GalleryGrid/GalleryGrid";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import Link from "next/link";
 import io from "socket.io-client";
 import ImageView from "@/components/Shared/ImageView/ImageView";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 export default function Home() {
   const [isListView, setIsListView] = useState(true);
   const [imgSrc, setImgSrc] = useState(null);
   const [socket, setSocket] = useState();
   const [data, setData] = useState();
+
+  const router = useRouter();
+
   async function fetchData() {
     let config = {
       method: "get",
@@ -28,7 +32,6 @@ export default function Home() {
     axios
       .request(config)
       .then((response) => {
-        console.log(JSON.stringify(response.data));
         const sortedData = sortByLastModified(response.data);
         setData(sortedData);
       })
@@ -47,8 +50,17 @@ export default function Home() {
   useEffect(() => {
     fetchData();
     socketInitializer();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (router.query.blobName) {
+      setImgSrc(
+        `https://interactivewallgallery.blob.core.windows.net/gallery/${router.query.blobName}`
+      );
+    }
+  }, [router]);
 
   const loadImageView = (e) => {
     const imageSource = e.target.getAttribute("src");
@@ -67,12 +79,12 @@ export default function Home() {
       console.log("connected");
     });
 
-    newSocket.on("loadLastImage", (blobName) => {
-      console.log("Display Last image on mobile screen");
-      setImgSrc(
-        `https://interactivewallgallery.blob.core.windows.net/gallery/${blobName}`
-      );
-    });
+    // newSocket.on("loadLastImage", (blobName) => {
+    //   console.log("Display Last image on mobile screen");
+    //   setImgSrc(
+    //     `https://interactivewallgallery.blob.core.windows.net/gallery/${blobName}`
+    //   );
+    // });
 
     setSocket(newSocket);
   };

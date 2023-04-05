@@ -28,8 +28,8 @@ export default function Home() {
       console.log("connected");
     });
 
-    newSocket.on("routeToGallery", () => {
-      routeToGalleryImageView.push("/");
+    newSocket.on("routeToGallery", (blobName) => {
+      routeToGalleryImageView.push(`/?blobName=${blobName}`);
     });
     setSocket(newSocket);
   };

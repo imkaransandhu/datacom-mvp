@@ -18,12 +18,12 @@ const SocketHandler = (req, res) => {
       // Listen for button clicks from Screen 1
 
       socket.on("uploaded-blob", (blobName) => {
-        socket.broadcast.emit("routeToGallery");
+        socket.broadcast.emit("routeToGallery", blobName);
         console.log("routeoGallery");
-        setTimeout(() => {
-          console.log("Load Image On Top");
-          socket.broadcast.emit("loadLastImage", blobName);
-        }, 2000);
+        // setTimeout(() => {
+        //   console.log("Load Image On Top");
+        //   socket.broadcast.emit("loadLastImage", blobName);
+        // }, 2000);
       });
 
       // Listen for button clicks from Screen 2
