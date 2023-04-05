@@ -56,11 +56,11 @@ export default function Home() {
 
   useEffect(() => {
     if (router.query.blobName) {
-      setImgSrc(
-        `https://interactivewallgallery.blob.core.windows.net/gallery/${router.query.blobName}`
-      );
+      if (data) {
+        setImgSrc(data[0].url);
+      }
     }
-  }, [router]);
+  }, [router, data]);
 
   const loadImageView = (e) => {
     const imageSource = e.target.getAttribute("src");
@@ -117,6 +117,21 @@ export default function Home() {
   //       <h1>Loading...</h1>
   //     </div>
   //   );
+  if (!data) {
+    return (
+      <div
+        style={{
+          backgroundColor: "black",
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <h1>Loading...</h1>
+      </div>
+    );
+  }
   return (
     <div>
       <CaptureSession />
