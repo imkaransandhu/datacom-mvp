@@ -20,7 +20,7 @@ export default function Home() {
   const [data, setData] = useState();
 
   const router = useRouter();
-
+  const { blobName } = router.query;
   async function fetchData() {
     let config = {
       method: "get",
@@ -53,14 +53,20 @@ export default function Home() {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  function formatDate(str) {
+    const splitOn_ = str.split("_");
+    const removeFileExtension = splitOn_[2].split(".");
+    const removedPercentage3A = removeFileExtension[0].replace(/%3A/g, ":");
+    return `${splitOn_[1]}_${removedPercentage3A}`;
+  }
   useEffect(() => {
-    if (router.query.blobName) {
-      if (data) {
+    if (blobName && data) {
+      const removeAccountDetails = formatDate(data[0].url);
+      if (blobName === `image_${removeAccountDetails}`) {
         setImgSrc(data[0].url);
       }
     }
-  }, [router, data]);
+  }, [blobName, data]);
 
   const loadImageView = (e) => {
     const imageSource = e.target.getAttribute("src");
