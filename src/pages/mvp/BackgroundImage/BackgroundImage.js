@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
 
 import styles from "./BackgroundImage.module.css";
@@ -9,9 +10,7 @@ const BackgroundImage = ({ imgSrc, imgRef }) => {
     <Fragment>
       {" "}
       {imgSrc ? (
-        <Image
-          width={640}
-          height={480}
+        <img
           className={styles.imgRef}
           ref={imgRef}
           src={imgSrc.url}
