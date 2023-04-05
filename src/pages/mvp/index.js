@@ -8,12 +8,14 @@ import RemoveBackground from "../../functions/RemoveBackground";
 import handleScreenChange from "@/functions/HandleScreenChange";
 import ScreenShotElements from "./ScreenShotElements/ScreenShotElements";
 import PutScreenShotToBlob from "@/axiosRequest/PutScreenShotToBlob";
+import styles from "./WorkingElements/WorkingElements.module.css";
 
 // Note: Require the cpu and webgl backend and add them to package.json as peer dependencies.
 
 export default function Home() {
   const canvas = useRef(); //First canvas on which the the Silhouette is drawn with black background
   const webcam = useRef(); // Camera
+  const flashRef = useRef(); // Camera
   const videoToReveal = useRef(); // Video that will be played inside the Silhouette
   const imgRef = useRef(); // background Image
   const newCanvas1 = useRef(); // clone 1
@@ -77,6 +79,10 @@ export default function Home() {
   function takeScreenshot(mySocket) {
     let dataUrl;
     const canvasElement = ScreenShotElementsRef.current; //getting the container in which the canvas element is
+    flashRef.current.classList.add(styles["flash-active"]);
+    setTimeout(() => {
+      flashRef.current.classList.remove(styles["flash-active"]);
+    }, 1000);
     html2canvas(canvasElement).then((canvas) => {
       dataUrl = canvas.toDataURL("image/png");
       PutScreenShotToBlob(dataUrl, mySocket);
@@ -102,6 +108,7 @@ export default function Home() {
       <WorkingElements
         canvas={canvas}
         webcam={webcam}
+        flashRef={flashRef}
         videoToReveal={videoToReveal}
         currentScreen={currentScreen}
       />

@@ -9,13 +9,13 @@ const WorkingElements = ({
   canvas,
   webcam,
   videoToReveal,
-
   currentScreen,
+  flashRef,
 }) => {
   const videoToRevealSrc = [
     "/video/lookBeyondToday.mp4",
     "/video/plain.mp4",
-    "/video/custom-plain.mp4",
+    "/video/compact-plain.mp4",
   ];
 
   return (
@@ -26,6 +26,7 @@ const WorkingElements = ({
         className={styles.canvas}
         ref={canvas}
       ></canvas>
+      <div ref={flashRef} class={styles.flash}></div>
 
       <Webcam width={640} height={480} className={styles.webcam} ref={webcam} />
       <video

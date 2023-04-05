@@ -29,7 +29,9 @@ const SocketHandler = (req, res) => {
       // Listen for button clicks from Screen 2
       socket.on("send-blob", () => {
         // Emit a 'screen1-click' event to Screen 1
-        socket.broadcast.emit("receive-blob");
+        setTimeout(() => {
+          socket.broadcast.emit("receive-blob");
+        }, 3000);
       });
     });
   }
